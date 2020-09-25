@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BMI Calculator</title>
+
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+
+	<script type="text/javascript" src="vue.min.js"></script>
+
+	<style type="text/css">
+		.box{ 
+			width:20px; 
+			height:20px; 
+		} 
+		.red{ 
+			background:#f00; 
+		} 
+		.green{ 
+			background:#0f0; 
+		} 
+		.blue{ 
+			background:#00f; 
+		}
+		.orange{
+			background:#FFA500;
+		}
+	</style>
+</head>
+<body>
+	<div class="container" id="app">
+		<h2 class="text-uppercase text-lg-center text-primary">Calculate Your BMI</h2>
+		<form>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="feet">Your Height: {{feet}} feet</label>
+					<input type="number" class="form-control" v-model="feet">
+				</div>
+				<div class="form-group col-md-6">
+					<label for="inches">Your Height: {{inches}} inches</label>
+					<input type="number" class="form-control" v-model="inches">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="weight">Your weight: {{weight}} pounds</label>
+				<input type="number" class="form-control" id="weight" v-model="weight">
+			</div>
+			<button v-on:click="calculate" class="btn btn-dark btn-outline-light my-3">Calculate BMI</button>
+
+		</form>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="row">
+					<div class="box blue my-2"></div><label>Underweight</label>
+				</div>
+				<div class="row">
+					<div class="box green my-2"> </div> Normal weight
+				</div>
+				<div class="row">
+					<div class="box orange my-2"> </div>Obesity
+				</div>
+				<div class="row">
+					<div class="box red my-2"> </div>Overweight
+				</div>
+				
+			</div>
+			<div class="col-md-6 bmiCalculate">
+				<h3>Your BMI</h3>
+				<div v-if="bmi < 18.5"> 
+					<p style="color: #00f">{{bmi}}</p>
+				</div>
+				<div v-else-if=" bmi >=18.5 && bmi <24.9 " class="text-primary">
+					<p style="color: #0f0">{{bmi}}</p>
+				</div>
+				<div v-else-if="bmi >=25 && bmi <29.9" class="text-success">
+					<p style="color: #FFA500">{{bmi}}</p>
+				</div>
+				<div v-else>
+					<p style="color: #f00">{{bmi}}</p>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+
+	<script type="text/javascript">
+	var app = new Vue({ // instance (object)
+      el:"#app", // DOM link
+      data:{
+      	feet:"",
+      	inches:"",
+      	weight:"",
+      	bmi: "",
+      },
+      methods:{
+      	calculate(){
+      		var feet = parseInt(this.feet);
+      		var inches = parseInt(this.inches);
+      		var weight = parseInt(this.weight);
+
+      		var height_inches = (feet * 12) + inches;
+      		this.bmi = 703 * weight /Math.pow(height_inches, 2)
+      		//var bmi = 703 * weight /Math.pow(height_inches, 2);
+      		if(bmi < 18.5) {
+      			return  bmi.toFixed(2);
+      		}
+      		else if (bmi >=18.5 && bmi <24.9 ) {
+      			return bmi.toFixed(2);
+      		}
+      		else if (bmi >=25 && bmi <29.9) {
+      			return bmi.toFixed(2);
+      		}
+      		else if(bmi >=30)
+      		{
+      			return bmi.toFixed(2);
+      		}
+      	}
+      }
+      /*computed: {
+     	CalculateBmi: function() {
+      		var feet = parseInt(this.feet);
+      		var inches = parseInt(this.inches);
+      		var weight = parseInt(this.weight);
+
+      		var height_inches = (feet * 12) + inches;
+
+      		this.bmi = 703 * weight /Math.pow(height_inches, 2);
+
+      		var bmi = 703 * weight /Math.pow(height_inches, 2);
+      		if(bmi < 18.5) {
+      			return  bmi.toFixed(2);
+      		}
+      		else if (bmi >=18.5 && bmi <24.9 ) {
+      			return bmi.toFixed(2);
+      		}
+      		else if (bmi >=25 && bmi <29.9) {
+      			return bmi.toFixed(2);
+      		}
+      		else if(bmi >=30)
+      		{
+      			return bmi.toFixed(2);
+      		}
+      	}
+      }*/
+  })
+</script>
+</body>
+</html>
+
